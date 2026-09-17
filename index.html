@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thiệp cưới</title>
+<meta name="description" content="Trân trọng kính mời bạn đến chung vui trong ngày hạnh phúc của chúng mình.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Thiệp cưới">
+<meta property="og:description" content="Trân trọng kính mời bạn đến chung vui trong ngày hạnh phúc của chúng mình.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💐</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Dancing+Script:wght@400;600&family=Be+Vietnam+Pro:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<!-- ?v=11 là số phiên bản chống cache.
+     Mỗi lần sửa CSS/JS mà web không chịu cập nhật, tăng số này lên (v=12, v=13...) -->
+<link rel="stylesheet" href="css/style.css?v=11">
+</head>
+<body>
+
+<!-- ===== BỘ HOA VĂN DÙNG CHUNG =====
+     Vẽ một lần ở đây, các nơi khác gọi lại bằng <use href="#...">  -->
+<svg width="0" height="0" class="svg-defs" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="foil" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0"    stop-color="#EBD9A4"/>
+      <stop offset="0.28" stop-color="#B48C2A"/>
+      <stop offset="0.5"  stop-color="#F4E7BD"/>
+      <stop offset="0.72" stop-color="#A87F1C"/>
+      <stop offset="1"    stop-color="#D8BC6B"/>
+    </linearGradient>
+
+    <!-- Hoa văn góc: hai cung lượn, hai vòng xoắn, hai lá và nụ hoa -->
+    <g id="ornCorner" fill="none" stroke="url(#foil)"
+       stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 98 C8 48 48 8 98 8"/>
+      <path d="M9 74 C12 44 44 12 74 9" stroke-width="1"/>
+      <path d="M98 8 C107 17 106 32 95 38 C86 43 77 36 80 27 C82 20 93 20 96 28"/>
+      <path d="M8 98 C17 107 32 106 38 95 C43 86 36 77 27 80 C20 82 20 93 28 96"/>
+      <path d="M42 42 C55 30 70 27 81 32" stroke-width="1.1"/>
+      <path d="M42 42 C30 55 27 70 32 81" stroke-width="1.1"/>
+      <path d="M52 34 C61 25 73 25 80 31 C71 40 59 41 52 34Z" fill="url(#foil)" stroke="none" opacity=".92"/>
+      <path d="M34 52 C25 61 25 73 31 80 C40 71 41 59 34 52Z" fill="url(#foil)" stroke="none" opacity=".92"/>
+      <circle cx="42" cy="42" r="3" fill="url(#foil)" stroke="none"/>
+      <circle cx="63" cy="63" r="1.8" fill="url(#foil)" stroke="none" opacity=".7"/>
+    </g>
+
+    <!-- Hoa văn ngăn cách -->
+    <g id="ornDivider">
+      <g fill="none" stroke="url(#foil)" stroke-width="1.3" stroke-linecap="round">
+        <path d="M6 12 H72"/>
+        <path d="M128 12 H194"/>
+        <path d="M72 12 C80 3 90 3 96 10"/>
+        <path d="M128 12 C120 21 110 21 104 14"/>
+      </g>
+      <path d="M100 2 C107 7 107 17 100 22 C93 17 93 7 100 2Z" fill="url(#foil)"/>
+      <circle cx="100" cy="12" r="1.9" fill="#FFFDF6"/>
+    </g>
+
+    <!-- Chiếc lá nhỏ, dùng lại nhiều lần quanh vòng nguyệt quế -->
+    <path id="monoLeaf" d="M0 0 C4.2 -4.6 4.2 -10.6 0 -14.6 C-4.2 -10.6 -4.2 -4.6 0 0Z"/>
+
+    <!-- Chữ lồng: vòng nguyệt quế + chữ đầu tên hai bạn -->
+    <g id="monogram">
+      <g class="mono__ring" fill="none" stroke="url(#foil)" stroke-width="1.5" stroke-linecap="round">
+        <path class="mono__arc" d="M60 14 A46 46 0 0 0 60 106"/>
+        <path class="mono__arc" d="M60 14 A46 46 0 0 1 60 106"/>
+      </g>
+      <g class="mono__leaves" fill="url(#foil)">
+        <use href="#monoLeaf" transform="translate(60 60) rotate(-32)  translate(0 -46) rotate(-16)"/>
+        <use href="#monoLeaf" transform="translate(60 60) rotate(-58)  translate(0 -46) rotate(-16)"/>
+        <use href="#monoLeaf" transform="translate(60 60) rotate(-84)  translate(0 -46) rotate(-16)"/>
+        <use href="#monoLeaf" transform="translate(60 60) rotate(-110) translate(0 -46) rotate(-16)"/>
+        <use href="#monoLeaf" transform="translate(60 60) rotate(-136) translate(0 -46) rotate(-16)"/>
+        <use href="#monoLeaf" transform="translate(60 60) rotate(32)   translate(0 -46) rotate(16)"/>
+        <use href="#monoLeaf" transform="translate(60 60) rotate(58)   translate(0 -46) rotate(16)"/>
+        <use href="#monoLeaf" transform="translate(60 60) rotate(84)   translate(0 -46) rotate(16)"/>
+        <use href="#monoLeaf" transform="translate(60 60) rotate(110)  translate(0 -46) rotate(16)"/>
+        <use href="#monoLeaf" transform="translate(60 60) rotate(136)  translate(0 -46) rotate(16)"/>
+      </g>
+      <text class="mono__txt" x="60" y="69" text-anchor="middle"
+            font-family="Cormorant Garamond, Georgia, serif" font-size="34"
+            letter-spacing="1" fill="url(#foil)">P&amp;T</text>
+    </g>
+
+    <!-- Bông hoa nhỏ dùng trong vòng hoa -->
+    <g id="wreathBlossom">
+      <g fill="#FFFDF8" stroke="url(#foil)" stroke-width=".7">
+        <ellipse cx="0" cy="-3.2" rx="2.3" ry="3.3" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-3.2" rx="2.3" ry="3.3" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-3.2" rx="2.3" ry="3.3" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-3.2" rx="2.3" ry="3.3" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-3.2" rx="2.3" ry="3.3" transform="rotate(288)"/>
+      </g>
+      <circle r="1.25" fill="url(#foil)"/>
+    </g>
+
+    <!-- Vòng hoa bao quanh ảnh bìa thiệp -->
+    <g id="ornWreath">
+      <circle cx="100" cy="100" r="78" fill="none" stroke="url(#foil)" stroke-width="1.6"/>
+      <circle cx="100" cy="100" r="73.5" fill="none" stroke="url(#foil)" stroke-width=".7" opacity=".55"/>
+      <g fill="url(#foil)" opacity=".92">
+        <use href="#monoLeaf" transform="translate(100 100) rotate(28.9) translate(0 -75.8) rotate(44.2) scale(1.68)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(67.6) translate(0 -79.1) rotate(46.1) scale(1.54)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(83.5) translate(0 -76.6) rotate(33.1) scale(1.35)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(95.8) translate(0 -76.2) rotate(40.5) scale(1.24)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(175.4) translate(0 -84.8) rotate(8.7) scale(0.94)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(185.8) translate(0 -77.4) rotate(13.5) scale(1.38)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(196.3) translate(0 -78.3) rotate(-32.2) scale(1.64)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(207.6) translate(0 -82.6) rotate(-14.7) scale(0.99)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(217.5) translate(0 -78.9) rotate(-2.6) scale(1.49)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(230.7) translate(0 -75.6) rotate(-29.2) scale(1.25)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(244.8) translate(0 -75.5) rotate(-50.4) scale(1.52)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(258.9) translate(0 -80.2) rotate(-39.3) scale(1.64)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(269.9) translate(0 -81.2) rotate(19.8) scale(1.35)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(281.1) translate(0 -74.4) rotate(-12.6) scale(1.03)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(291.2) translate(0 -75.8) rotate(-40.0) scale(1.59)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(303.5) translate(0 -80.8) rotate(-17.3) scale(1.25)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(313.1) translate(0 -74.1) rotate(-24.7) scale(1.44)"/>
+        <use href="#monoLeaf" transform="translate(100 100) rotate(322.9) translate(0 -75.3) rotate(-12.8) scale(1.09)"/>
+      </g>
+      <use href="#wreathBlossom" transform="translate(100 100) rotate(196) translate(0 -81.9) rotate(-196) scale(1.5)"/>
+      <use href="#wreathBlossom" transform="translate(100 100) rotate(214) translate(0 -81.3) rotate(-214) scale(1.0)"/>
+      <use href="#wreathBlossom" transform="translate(100 100) rotate(246) translate(0 -80.8) rotate(-246) scale(1.25)"/>
+      <use href="#wreathBlossom" transform="translate(100 100) rotate(158) translate(0 -79.7) rotate(-158) scale(1.1)"/>
+      <use href="#wreathBlossom" transform="translate(100 100) rotate(64) translate(0 -77.9) rotate(-64) scale(1.3)"/>
+      <use href="#wreathBlossom" transform="translate(100 100) rotate(92) translate(0 -81.0) rotate(-92) scale(0.95)"/>
+      <use href="#wreathBlossom" transform="translate(100 100) rotate(330) translate(0 -78.0) rotate(-330) scale(1.15)"/>
+    </g>
+
+    <!-- Nhẫn đôi lồng nhau, có tia sáng -->
+    <g id="ornRings">
+      <g fill="none" stroke="url(#foil)" stroke-linecap="round">
+        <circle cx="44" cy="46" r="23" stroke-width="3"/>
+        <circle cx="44" cy="46" r="19" stroke-width=".8" opacity=".5"/>
+        <circle cx="74" cy="50" r="19" stroke-width="2.6"/>
+        <circle cx="74" cy="50" r="15.5" stroke-width=".7" opacity=".5"/>
+      </g>
+      <g fill="url(#foil)">
+        <path d="M44 12 L51.5 20.5 L44 30 L36.5 20.5 Z"/>
+        <path d="M44 12 L51.5 20.5 L44 21.5 Z" opacity=".45"/>
+      </g>
+      <g stroke="url(#foil)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity=".8">
+        <path d="M96 16 v11 M90.5 21.5 h11"/>
+        <path d="M14 66 v7 M10.5 69.5 h7"/>
+      </g>
+    </g>
+
+    <!-- Nhành hoa nhỏ trang trí đầu thiệp -->
+    <g id="ornSprig" fill="none" stroke="url(#foil)" stroke-width="1.2" stroke-linecap="round">
+      <path d="M60 34 C60 20 48 10 34 8"/>
+      <path d="M60 34 C60 20 72 10 86 8"/>
+      <path d="M48 20 C42 14 34 13 28 16 C34 22 43 23 48 20Z" fill="url(#foil)" stroke="none" opacity=".9"/>
+      <path d="M72 20 C78 14 86 13 92 16 C86 22 77 23 72 20Z" fill="url(#foil)" stroke="none" opacity=".9"/>
+      <path d="M60 34 C56 28 56 22 60 18 C64 22 64 28 60 34Z" fill="url(#foil)" stroke="none"/>
+    </g>
+  </defs>
+</svg>
+
+<!-- ===== MÀN HÌNH MỞ THIỆP ===== -->
+<div class="opening" id="opening">
+  <!-- Hai cánh rèm tách sang hai bên khi khách bấm mở -->
+  <div class="opening__curtain opening__curtain--l"></div>
+  <div class="opening__curtain opening__curtain--r"></div>
+
+  <div class="opening__inner">
+    <svg class="monogram monogram--lg" id="openingMono" viewBox="0 0 120 120" aria-hidden="true">
+      <use href="#monogram"/>
+    </svg>
+    <p class="opening__to" id="openingTo">Thân mời</p>
+    <h1 class="opening__names" id="openingNames">—</h1>
+    <p class="opening__date" id="openingDate">—</p>
+    <button class="btn btn--gold" id="openBtn">Mở thiệp mời</button>
+  </div>
+</div>
+
+<!-- ===== MÀN HÌNH MẬT KHẨU (tuỳ chọn) ===== -->
+<div class="gate" id="gate" hidden>
+  <div class="gate__box">
+    <h2>Nhập mã thiệp</h2>
+    <p>Mã gồm 4 chữ số được in trên thiệp giấy của bạn.</p>
+    <input type="text" id="gateInput" inputmode="numeric" maxlength="8" placeholder="••••">
+    <button class="btn" id="gateBtn">Xác nhận</button>
+    <p class="gate__err" id="gateErr"></p>
+  </div>
+</div>
+
+<!-- ===== NHẠC NỀN ===== -->
+<button class="music-toggle" id="musicToggle" title="Bật/tắt nhạc" hidden>
+  <span class="music-toggle__icon">♫</span>
+  <span class="music-toggle__bars"><i></i><i></i><i></i></span>
+</button>
+<audio id="bgm" loop preload="none"></audio>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <a class="nav__brand" href="#hero"><span id="navBrand">♥</span></a>
+  <button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav__list" id="navList">
+    <li><a href="#invitation">Thiệp mời</a></li>
+    <li><a href="#story">Chuyện chúng mình</a></li>
+    <li><a href="#couple">Cô dâu &amp; Chú rể</a></li>
+    <li><a href="#events">Sự kiện</a></li>
+    <li id="navFaith" hidden><a href="#faith">Nhà thờ</a></li>
+    <li id="navSchedule" hidden><a href="#schedule">Lịch trình</a></li>
+    <li id="navRsvp"><a href="#rsvp">Xác nhận</a></li>
+    <li><a href="#gift">Mừng cưới</a></li>
+  </ul>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="hero">
+  <div class="hero__bg"></div>
+  <div class="hero__photo" id="heroPhoto"></div>
+  <div class="hero__scrim"></div>
+  <div class="hero__content">
+    <svg class="monogram" id="heroMono" viewBox="0 0 120 120" aria-hidden="true">
+      <use href="#monogram"/>
+    </svg>
+    <p class="hero__tagline" id="heroTagline">Save the date</p>
+    <h1 class="hero__names">
+      <span id="heroGroom">—</span>
+      <span class="hero__amp">&amp;</span>
+      <span id="heroBride">—</span>
+    </h1>
+    <div class="hero__rule"><i></i><span>♥</span><i></i></div>
+    <p class="hero__date" id="heroDate">—</p>
+    <p class="hero__lunar" id="heroLunar"></p>
+
+    <div class="countdown" id="countdown">
+      <div class="countdown__cell"><b id="cdD">00</b><span>Ngày</span></div>
+      <div class="countdown__cell"><b id="cdH">00</b><span>Giờ</span></div>
+      <div class="countdown__cell"><b id="cdM">00</b><span>Phút</span></div>
+      <div class="countdown__cell"><b id="cdS">00</b><span>Giây</span></div>
+    </div>
+
+    <div class="hero__cta">
+      <a href="#rsvp" class="btn btn--gold">Xác nhận tham dự</a>
+      <button class="btn btn--ghost" id="addCalBtn">+ Thêm vào lịch</button>
+    </div>
+  </div>
+  <a href="#story" class="hero__scroll" aria-label="Cuộn xuống"><span></span></a>
+</header>
+
+<!-- ===== LỜI MỜI ===== -->
+<section class="invite reveal">
+  <div class="wrap wrap--narrow center">
+    <p class="script" id="inviteQuote">—</p>
+    <p class="lead" id="inviteSub">—</p>
+    <div class="families">
+      <div class="families__side">
+        <h4>Nhà Trai</h4>
+        <p id="groomFather">—</p>
+        <p id="groomMother">—</p>
+        <p class="families__child" id="groomChild"></p>
+        <small id="groomAddress"></small>
+      </div>
+      <div class="families__div"></div>
+      <div class="families__side">
+        <h4>Nhà Gái</h4>
+        <p id="brideFather">—</p>
+        <p id="brideMother">—</p>
+        <p class="families__child" id="brideChild"></p>
+        <small id="brideAddress"></small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== THIỆP MỜI ===== -->
+<section class="section section--tint" id="invitation">
+  <div class="wrap wrap--narrow">
+    <div class="sec-head reveal">
+      <p class="sec-head__eyebrow">Thiệp mời</p>
+      <h2 class="sec-head__title">Thiệp dành riêng cho bạn</h2>
+      <p class="sec-head__sub" id="inviteHint">Tấm thiệp này dành riêng cho bạn.</p>
+    </div>
+
+    <div class="env-stage reveal" id="envStage">
+      <div class="envelope" id="envelope" role="button" tabindex="0"
+           aria-label="Chạm để mở thiệp mời">
+
+        <!-- Lòng trong phong bì -->
+        <div class="env__back"></div>
+
+        <!-- Thân trước phong bì -->
+        <div class="env__front"></div>
+
+        <!-- Nắp: mặt ngoài giấy, mặt trong có hoạ tiết lót -->
+        <div class="env__flap">
+          <span class="env__face env__face--out"></span>
+          <span class="env__face env__face--in"></span>
+        </div>
+
+        <!-- Dấu sáp khắc chữ lồng -->
+        <div class="env__seal" id="envSeal">
+          <svg viewBox="0 0 52 52" aria-hidden="true">
+            <circle cx="26" cy="26" r="23.2" fill="none" stroke="rgba(255,250,235,.28)" stroke-width="1.1"/>
+            <circle cx="26" cy="26" r="19.6" fill="none" stroke="rgba(120,86,18,.35)" stroke-width="1"/>
+            <text id="sealMono" x="26" y="32.5" text-anchor="middle"
+                  font-family="Cormorant Garamond, Georgia, serif" font-size="17.5"
+                  letter-spacing="0.5" fill="rgba(255,252,242,.94)">P&amp;T</text>
+          </svg>
+        </div>
+      </div>
+
+
+      <!-- Tấm thiệp một mặt, bố cục như thiệp cưới in -->
+      <article class="env__card" id="envCard">
+        <div class="ecard">
+          <svg class="ecard__orn ecard__orn--tl" viewBox="0 0 106 106"><use href="#ornCorner"/></svg>
+          <svg class="ecard__orn ecard__orn--tr" viewBox="0 0 106 106"><use href="#ornCorner"/></svg>
+          <svg class="ecard__orn ecard__orn--bl" viewBox="0 0 106 106"><use href="#ornCorner"/></svg>
+          <svg class="ecard__orn ecard__orn--br" viewBox="0 0 106 106"><use href="#ornCorner"/></svg>
+
+          <div class="ecard__body">
+            <svg class="ecard__sprig" viewBox="0 0 120 40"><use href="#ornSprig"/></svg>
+
+            <!-- Hai họ -->
+            <div class="ec-fams">
+              <div>
+                <h4>Nhà Trai</h4>
+                <p id="ecGroomFam">—</p>
+                <small id="ecGroomAddr"></small>
+              </div>
+              <span class="ec-fams__div"></span>
+              <div>
+                <h4>Nhà Gái</h4>
+                <p id="ecBrideFam">—</p>
+                <small id="ecBrideAddr"></small>
+              </div>
+            </div>
+
+            <p class="ec-announce">Trân trọng báo tin lễ thành hôn của hai con</p>
+
+            <!-- Cô dâu chú rể -->
+            <div class="ec-couple">
+              <div>
+                <span class="ec-couple__title" id="ecGroomTitle">Quý nam</span>
+                <b class="ec-couple__name" id="ecGroomName">—</b>
+              </div>
+              <span class="ec-couple__amp">&amp;</span>
+              <div>
+                <span class="ec-couple__title" id="ecBrideTitle">Quý nữ</span>
+                <b class="ec-couple__name" id="ecBrideName">—</b>
+              </div>
+            </div>
+
+            <svg class="ecard__rings" viewBox="0 0 110 76"><use href="#ornRings"/></svg>
+
+            <!-- Lời mời khách -->
+            <p class="ec-eyebrow">Trân trọng kính mời</p>
+            <p class="ec-guest" id="ecGuest">Quý khách</p>
+            <p class="ec-line">Đến dự buổi tiệc chung vui cùng gia đình chúng tôi</p>
+
+            <svg class="ecard__divider" viewBox="0 0 200 24"><use href="#ornDivider"/></svg>
+
+            <!-- Thời gian, địa điểm -->
+            <p class="ec-when" id="ecWhen">—</p>
+            <p class="ec-lunar" id="ecLunar"></p>
+            <p class="ec-at">Tại</p>
+            <p class="ec-venue" id="ecVenue">—</p>
+
+            <p class="ec-note">Sự hiện diện của quý khách là niềm vinh hạnh<br>cho gia đình chúng tôi</p>
+          </div>
+        </div>
+      </article>
+
+      <p class="env-hint" id="envHint">Chạm vào phong bì để mở</p>
+    </div>
+
+    <div class="env-actions">
+      <button class="btn btn--ghost btn--sm" id="envToggle">Mở thiệp</button>
+      <button class="btn btn--ghost btn--sm" id="cardDownload">Tải thiệp về máy</button>
+      <a class="btn btn--ghost btn--sm" href="#rsvp">Xác nhận tham dự</a>
+    </div>
+    <canvas id="cardCanvas" width="900" height="1260" hidden></canvas>
+  </div>
+</section>
+
+<!-- ===== CÔ DÂU & CHÚ RỂ ===== -->
+<section class="section" id="couple">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="sec-head__eyebrow">Hai nhân vật chính</p>
+      <h2 class="sec-head__title">Cô dâu &amp; Chú rể</h2>
+    </div>
+    <div class="couple" id="coupleGrid"></div>
+  </div>
+</section>
+
+<!-- ===== CHUYỆN CHÚNG MÌNH ===== -->
+<section class="section section--tint" id="story">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="sec-head__eyebrow">Our story</p>
+      <h2 class="sec-head__title">Chuyện chúng mình</h2>
+    </div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<!-- ===== SỰ KIỆN ===== -->
+<section class="section" id="events">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="sec-head__eyebrow">Lịch trình</p>
+      <h2 class="sec-head__title">Sự kiện cưới</h2>
+    </div>
+    <div class="events" id="eventsGrid"></div>
+    <div class="mapbox reveal">
+      <div class="mapbox__tabs" id="mapTabs"></div>
+      <div class="mapbox__frame"><iframe id="mapFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ"></iframe></div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ===== GÓC CÔNG GIÁO ===== -->
+<section class="section section--tint" id="faith" hidden>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="sec-head__eyebrow" id="faithEyebrow">Thánh lễ Hôn phối</p>
+      <h2 class="sec-head__title" id="faithTitle">—</h2>
+      <p class="sec-head__sub" id="faithIntro"></p>
+    </div>
+
+    <blockquote class="verse reveal" id="faithVerse" hidden>
+      <p class="verse__text" id="faithVerseText"></p>
+      <cite class="verse__ref" id="faithVerseRef"></cite>
+    </blockquote>
+
+    <div class="rite" id="faithSteps"></div>
+
+    <h3 class="sub-title reveal">Vài điều nhỏ cần biết</h3>
+    <div class="tips" id="faithTips"></div>
+  </div>
+</section>
+
+<!-- ===== DÒNG THỜI GIAN NGÀY CƯỚI ===== -->
+<section class="section" id="schedule" hidden>
+  <div class="wrap wrap--narrow">
+    <div class="sec-head reveal">
+      <p class="sec-head__eyebrow">Lịch trình chi tiết</p>
+      <h2 class="sec-head__title" id="schedTitle">—</h2>
+      <p class="sec-head__sub" id="schedSub"></p>
+    </div>
+    <ol class="runsheet" id="runsheet"></ol>
+  </div>
+</section>
+
+
+<!-- ===== SAU ĐÁM CƯỚI ===== -->
+<section class="section" id="thanks" hidden>
+  <div class="wrap wrap--narrow center">
+    <div class="sec-head reveal">
+      <p class="sec-head__eyebrow" id="thanksEyebrow"></p>
+      <h2 class="sec-head__title" id="thanksTitle">—</h2>
+    </div>
+    <p class="lead reveal" id="thanksMsg"></p>
+    <div class="reveal" style="margin-top:28px">
+      <a class="btn btn--gold" id="thanksAlbum" href="#" target="_blank" rel="noopener" hidden>Xem album</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RSVP ===== -->
+<section class="section" id="rsvp">
+  <div class="wrap wrap--narrow">
+    <div class="sec-head reveal">
+      <p class="sec-head__eyebrow">R.S.V.P</p>
+      <h2 class="sec-head__title">Xác nhận tham dự</h2>
+      <p class="sec-head__sub">Vui lòng phản hồi trước ngày <b id="rsvpDeadline">—</b> để tụi mình sắp xếp chỗ ngồi chu đáo nhất nhé.</p>
+    </div>
+
+    <form class="form card reveal" id="rsvpForm" novalidate>
+      <div class="field">
+        <label for="f_name">Họ và tên <i>*</i></label>
+        <input type="text" id="f_name" name="name" required placeholder="Nguyễn Văn A">
+      </div>
+
+      <div class="field">
+        <label for="f_phone">Số điện thoại</label>
+        <input type="tel" id="f_phone" name="phone" placeholder="09xx xxx xxx">
+      </div>
+
+      <div class="field">
+        <label>Bạn là khách mời của <i>*</i></label>
+        <div class="chips" data-name="side">
+          <label class="chip"><input type="radio" name="side" value="Nhà trai" required><span>Nhà trai</span></label>
+          <label class="chip"><input type="radio" name="side" value="Nhà gái"><span>Nhà gái</span></label>
+          <label class="chip"><input type="radio" name="side" value="Cả hai"><span>Cả hai</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Bạn sẽ đến chứ? <i>*</i></label>
+        <div class="chips" data-name="attend">
+          <label class="chip chip--yes"><input type="radio" name="attend" value="Có tham dự" required><span>🎉 Chắc chắn có mặt</span></label>
+          <label class="chip chip--no"><input type="radio" name="attend" value="Không tham dự"><span>😢 Rất tiếc, không thể</span></label>
+        </div>
+      </div>
+
+      <div id="attendExtra" hidden>
+        <div class="field-row">
+          <div class="field">
+            <label for="f_guests">Số người tham dự (kể cả bạn)</label>
+            <select id="f_guests" name="guests">
+              <option value="1">1 người</option>
+              <option value="2">2 người</option>
+              <option value="3">3 người</option>
+              <option value="4">4 người</option>
+              <option value="5">5 người</option>
+              <option value="6+">Trên 5 người</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f_events">Bạn tham dự sự kiện nào?</label>
+            <select id="f_events" name="events"></select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f_diet">Lưu ý về món ăn</label>
+            <select id="f_diet" name="diet">
+              <option value="Không">Không có lưu ý gì</option>
+              <option value="Ăn chay">Ăn chay</option>
+              <option value="Không ăn hải sản">Không ăn hải sản</option>
+              <option value="Dị ứng">Dị ứng thực phẩm</option>
+              <option value="Khác">Khác (ghi ở lời nhắn)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f_transport">Phương tiện di chuyển</label>
+            <select id="f_transport" name="transport">
+              <option value="Tự túc">Tự túc</option>
+              <option value="Cần xe đưa đón">Cần xe đưa đón</option>
+              <option value="Cần chỗ ở">Ở xa, cần hỗ trợ chỗ ở</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f_wish">Lời chúc gửi cô dâu chú rể</label>
+        <textarea id="f_wish" name="wish" rows="4" placeholder="Chúc hai bạn trăm năm hạnh phúc..."></textarea>
+      </div>
+
+      <button type="submit" class="btn btn--gold btn--block" id="rsvpSubmit">Gửi xác nhận</button>
+      <p class="form__msg" id="rsvpMsg"></p>
+    </form>
+  </div>
+</section>
+
+
+<!-- ===== MỪNG CƯỚI ===== -->
+<section class="section section--tint" id="gift" hidden>
+  <div class="wrap wrap--narrow">
+    <div class="sec-head reveal">
+      <p class="sec-head__eyebrow">Wedding gift</p>
+      <h2 class="sec-head__title" id="giftTitle">Hộp mừng cưới</h2>
+      <p class="sec-head__sub" id="giftMsg"></p>
+    </div>
+    <div class="gifts" id="giftGrid"></div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="wrap center">
+    <p class="script footer__thanks">Cảm ơn bạn rất nhiều!</p>
+    <h3 class="footer__names" id="footerNames">—</h3>
+    <p class="footer__date" id="footerDate">—</p>
+    <div class="footer__share">
+      <button class="btn btn--ghost btn--sm" id="shareBtn">Chia sẻ thiệp</button>
+      <button class="btn btn--ghost btn--sm" id="copyBtn">Sao chép link</button>
+    </div>
+    <p class="footer__credit">Made with ♥</p>
+  </div>
+</footer>
+
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<!-- ===== CANVAS CÁNH HOA ===== -->
+<canvas class="petals" id="petals"></canvas>
+
+<script src="js/config.js?v=11"></script>
+<script src="js/main.js?v=11"></script>
+</body>
+</html>

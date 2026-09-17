@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tạo link thiệp mời cá nhân</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✉️</text></svg>">
+<style>
+  :root{--ink:#3A3330;--muted:#9A908B;--line:#EAE2DA;--gold:#C9A227;--cream:#FDFBF7}
+  *{box-sizing:border-box}
+  body{margin:0;padding:34px 20px 60px;font-family:'Be Vietnam Pro',system-ui,-apple-system,sans-serif;
+       font-weight:300;color:var(--ink);background:var(--cream);line-height:1.7}
+  .wrap{max-width:900px;margin:auto}
+  h1{font-family:Georgia,serif;font-weight:400;font-size:1.9rem;margin:0 0 6px}
+  p.sub{color:var(--muted);margin:0 0 26px;font-size:.92rem}
+  label{display:block;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:18px 0 7px}
+  input,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit}
+  textarea{resize:vertical;min-height:170px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88rem}
+  button{padding:12px 24px;border:1px solid var(--gold);background:var(--gold);color:#fff;border-radius:999px;
+         cursor:pointer;font:inherit;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-top:18px}
+  button.ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+  table{width:100%;border-collapse:collapse;margin-top:26px;font-size:.9rem;background:#fff;
+        border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#F7E7E6;font-weight:500;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase}
+  td a{color:var(--gold);word-break:break-all;font-size:.84rem}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .opt{display:flex;align-items:center;gap:9px;margin-top:16px;text-transform:none;
+       letter-spacing:0;color:var(--ink);font-size:.9rem;cursor:pointer}
+  .opt input{width:auto}
+  .note{background:#fff;border:1px solid var(--line);border-left:3px solid var(--gold);
+        border-radius:10px;padding:14px 18px;font-size:.88rem;margin-top:26px}
+  code{background:#F3EDE4;padding:2px 6px;border-radius:5px;font-size:.85em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Tạo link thiệp mời cá nhân hoá ✉️</h1>
+  <p class="sub">Mỗi khách một đường link riêng — mở ra sẽ thấy tên họ trên thiệp và form RSVP tự điền sẵn.</p>
+
+  <label for="base">Địa chỉ website cưới của bạn</label>
+  <input id="base" placeholder="https://tenban.github.io/wedding/">
+
+  <label for="names">Danh sách khách mời (mỗi dòng một người)</label>
+  <textarea id="names" placeholder="Nguyễn Văn A
+Gia đình cô Bảy
+Anh Minh &amp; chị Lan
+Tập thể lớp 12A1"></textarea>
+
+  <label for="tpl">Tin nhắn mời (dùng <code>{ten}</code> và <code>{link}</code> để thay tự động)</label>
+  <textarea id="tpl" style="min-height:120px;font-family:inherit;font-size:.92rem">Kính gửi {ten},
+
+Tụi mình là Hữu Phúc & Hải Thủy, sắp về chung một nhà vào ngày 20.12.2026.
+Thiệp mời riêng của bạn ở đây nè: {link}
+
+Bạn mở ra bấm xác nhận giúp tụi mình để sắp xếp chỗ ngồi chu đáo nhé. Rất mong được gặp bạn!</textarea>
+
+  <label class="opt">
+    <input type="checkbox" id="keepAccent" checked>
+    Giữ dấu tiếng Việt trong link — tên khách hiện đúng dấu trên thiệp
+  </label>
+
+  <div class="row">
+    <button id="gen">Tạo link</button>
+    <button class="ghost" id="csv">Tải file CSV</button>
+    <button class="ghost" id="copyAll">Sao chép tất cả</button>
+    <button class="ghost" id="copyBook">Sao chép danh bạ cho config.js</button>
+  </div>
+
+  <div id="out"></div>
+
+  <div class="note">
+    <b>Mẹo dùng:</b> Tải CSV → mở bằng Excel/Google Sheets → dán link tương ứng khi nhắn Zalo/Messenger cho từng người.
+    Link có dạng <code>...?to=Nguyen-Van-A</code>. Khách nào bạn gửi link chung (không có <code>?to=</code>) thì thiệp
+    vẫn hiển thị bình thường với lời mời chung.
+  </div>
+</div>
+
+<script>
+// Khoá tra cứu trong config.guests — luôn không dấu, viết thường
+function key(s){
+  return s.trim().toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/đ/g,'d')
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-|-$/g,'');
+}
+
+// Giữ nguyên dấu tiếng Việt để tên hiện đẹp trên thiệp.
+// Bỏ tick "Giữ dấu" nếu muốn link ngắn gọn không dấu.
+function slug(s){
+  var keep = document.getElementById('keepAccent').checked;
+  s = s.trim().replace(/[^\p{L}\p{N}\s]/gu,'').replace(/\s+/g,'-');
+  if(!keep){
+    s = s.normalize('NFD').replace(/[̀-ͯ]/g,'')
+         .replace(/đ/g,'d').replace(/Đ/g,'D')
+         .replace(/[^a-zA-Z0-9-]/g,'');
+  }
+  return encodeURIComponent(s);
+}
+var rows = [];
+
+function build(){
+  var base = document.getElementById('base').value.trim();
+  if(!base){ alert('Bạn nhập địa chỉ website trước nhé.'); return; }
+  if(!/^https?:\/\//.test(base)) base = 'https://' + base;
+  if(!/\/$/.test(base) && !/\.html$/.test(base)) base += '/';
+
+  var names = document.getElementById('names').value.split('\n')
+    .map(function(s){return s.trim()}).filter(Boolean);
+  if(!names.length){ alert('Bạn nhập danh sách khách mời nhé.'); return; }
+
+  var tpl = document.getElementById('tpl').value;
+  rows = names.map(function(n){
+    var url = base + '?to=' + slug(n);
+    return { name:n, url:url, msg: tpl.split('{ten}').join(n).split('{link}').join(url) };
+  });
+
+  document.getElementById('out').innerHTML =
+    '<table><thead><tr><th style="width:36px">#</th><th style="width:190px">Khách mời</th>' +
+    '<th>Link thiệp</th><th style="width:118px">Tin nhắn</th></tr></thead><tbody>' +
+    rows.map(function(r,i){
+      return '<tr><td>'+(i+1)+'</td><td>'+r.name.replace(/</g,'&lt;')+
+             '</td><td><a href="'+r.url+'" target="_blank" rel="noopener">'+r.url+'</a></td>'+
+             '<td><button class="ghost" style="margin:0;padding:7px 12px;font-size:.66rem" '+
+             'data-msg="'+i+'">Sao chép</button></td></tr>';
+    }).join('') + '</tbody></table>';
+
+  document.getElementById('out').onclick = function(e){
+    var b = e.target.closest('[data-msg]');
+    if(!b) return;
+    navigator.clipboard.writeText(rows[+b.dataset.msg].msg).then(function(){
+      var old = b.textContent;
+      b.textContent = 'Đã chép!';
+      setTimeout(function(){ b.textContent = old; }, 1600);
+    });
+  };
+}
+
+document.getElementById('gen').onclick = build;
+
+document.getElementById('csv').onclick = function(){
+  if(!rows.length) build();
+  if(!rows.length) return;
+  var q = function(s){ return '"' + String(s).replace(/"/g,'""') + '"'; };
+  var csv = '﻿' + 'STT,Khach moi,Link thiep,Tin nhan,Da gui\n' +
+    rows.map(function(r,i){
+      return (i+1)+','+q(r.name)+','+q(r.url)+','+q(r.msg)+',';
+    }).join('\n');
+  var a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'danh-sach-thiep-moi.csv';
+  a.click();
+};
+
+// Sinh sẵn khối guests{} để dán vào js/config.js — tên khách luôn hiện đủ dấu,
+// kể cả khi link không dấu.
+document.getElementById('copyBook').onclick = function(){
+  if(!rows.length) build();
+  if(!rows.length) return;
+  var w = Math.max.apply(null, rows.map(function(r){ return key(r.name).length; })) + 3;
+  var txt = '  guests: {\n' +
+    rows.map(function(r){
+      return "    '" + key(r.name) + "':" +
+             ' '.repeat(Math.max(1, w - key(r.name).length)) +
+             "{ name: '" + r.name.replace(/'/g,"\\'") + "' },";
+    }).join('\n').replace(/,$/,'') + '\n  },';
+  navigator.clipboard.writeText(txt).then(function(){
+    alert('Đã sao chép danh bạ ' + rows.length + ' khách.\n\n' +
+          'Mở js/config.js, tìm mục "6. DANH BẠ KHÁCH MỜI" và thay khối guests cũ bằng đoạn vừa chép.');
+  });
+};
+
+document.getElementById('copyAll').onclick = function(){
+  if(!rows.length) build();
+  if(!rows.length) return;
+  var txt = rows.map(function(r){ return r.name + '\t' + r.url; }).join('\n');
+  navigator.clipboard.writeText(txt).then(function(){ alert('Đã sao chép ' + rows.length + ' dòng!'); });
+};
+</script>
+</body>
+</html>
