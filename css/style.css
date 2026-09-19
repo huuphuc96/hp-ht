@@ -239,9 +239,7 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.2;margin:0}
 .hero__lunar{animation-delay:1.3s}
 .countdown{animation-delay:1.45s}
 .hero__cta{animation-delay:1.6s}
-/* clamp: mức nhỏ nhất 2.45rem là cỡ trên điện thoại — đừng hạ xuống 1.4rem,
-   tên sẽ bé xíu. Crimson Text chỉ có 400/600/700, đặt 300 là vô nghĩa. */
-.hero__names{font-family:var(--script);font-size:clamp(1.45rem,9.4vw,5.2rem);line-height:1.26;display:flex;flex-wrap:wrap;gap:0 20px;justify-content:center;align-items:center;font-weight:600}
+.hero__names{font-family:var(--script);font-size:clamp(1.45rem,9.4vw,5.2rem);line-height:1.26;display:flex;flex-wrap:wrap;gap:0 20px;justify-content:center;align-items:center;font-weight:300}
 .hero__amp{font-family:var(--script);color:var(--gold);font-size:.87em;line-height:1;font-weight:600}
 .hero__rule{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px 0 14px}
 .hero__rule i{width:clamp(40px,12vw,90px);height:1px;background:var(--line)}
