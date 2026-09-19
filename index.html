@@ -20,7 +20,7 @@
      Mỗi lần sửa CSS/JS mà web không chịu cập nhật, tăng số này lên (v=12, v=13...) -->
 <!-- Số ?v= này chỉ dùng khi mở file trực tiếp trên máy.
      Lúc deploy, GitHub Actions sẽ tự thay bằng mã commit — xem .github/workflows/deploy.yml -->
-<link rel="stylesheet" href="css/style.css?v=12">
+<link rel="stylesheet" href="css/style.css?v=13">
 </head>
 <body>
 
@@ -240,12 +240,11 @@
       <div class="countdown__cell"><b id="cdS">00</b><span>Giây</span></div>
     </div>
 
-    <div class="hero__cta">
-      <a href="#rsvp" class="btn btn--gold">Xác nhận tham dự</a>
-      <button class="btn btn--ghost" id="addCalBtn">+ Thêm vào lịch</button>
-    </div>
+    <!-- Đã bỏ 2 nút "Xác nhận tham dự" / "Thêm vào lịch" và mũi tên cuộn ở hero
+         theo yêu cầu — khách vẫn vào được phần xác nhận qua menu.
+         LƯU Ý: nút #addCalBtn bị gỡ hẳn, nên main.js phải kiểm tra tồn tại
+         trước khi gắn sự kiện (xem mục "THÊM VÀO LỊCH" trong main.js). -->
   </div>
-  <a href="#story" class="hero__scroll" aria-label="Cuộn xuống"><span></span></a>
 </header>
 
 <!-- ===== LỜI MỜI ===== -->
@@ -594,7 +593,7 @@
 <!-- ===== CANVAS CÁNH HOA ===== -->
 <canvas class="petals" id="petals"></canvas>
 
-<script src="js/config.js?v=12"></script>
-<script src="js/main.js?v=12"></script>
+<script src="js/config.js?v=13"></script>
+<script src="js/main.js?v=13"></script>
 </body>
 </html>

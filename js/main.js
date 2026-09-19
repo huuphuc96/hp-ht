@@ -642,9 +642,12 @@
     $('#navRsvp').hidden = true;
     $('#schedule').hidden = true;
     $('#navSchedule').hidden = true;
-    $('#addCalBtn').hidden = true;
+    // Nút "Thêm vào lịch" đã gỡ khỏi hero — phải kiểm tra tồn tại, không thì
+    // dòng này ném lỗi và chặn toàn bộ JS chạy sau nó.
+    var calBtn = $('#addCalBtn');
+    if (calBtn) calBtn.hidden = true;
 
-    // Nút CTA ở hero trỏ sang lời cảm ơn
+    // Nút CTA ở hero trỏ sang lời cảm ơn (chỉ còn nếu sau này thêm lại)
     var heroCta = $('.hero__cta .btn--gold');
     if (heroCta) { heroCta.setAttribute('href', '#thanks'); heroCta.textContent = 'Lời cảm ơn'; }
     $('#heroTagline').textContent = 'Chúng mình đã cưới';
@@ -933,7 +936,10 @@
   /* ---------------------------------------------------------
      9. THÊM VÀO LỊCH (.ics)
      --------------------------------------------------------- */
-  $('#addCalBtn').addEventListener('click', function () {
+  // Nút đã gỡ khỏi hero. Giữ nguyên đoạn code này để sau muốn thêm lại nút
+  // chỉ cần đặt <button id="addCalBtn"> vào HTML là chạy ngay.
+  var addCalBtn = $('#addCalBtn');
+  if (addCalBtn) addCalBtn.addEventListener('click', function () {
     var start = new Date(C.weddingDate);
     var end = new Date(start.getTime() + 3 * 3600 * 1000);
     function fmt(d) { return d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'; }
