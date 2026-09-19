@@ -124,14 +124,18 @@
   $('#heroTagline').textContent = hero.tagline || 'Save the date';
   $('#heroDate').textContent = C.weddingDateText || '';
 
-  // Tên hiện dần từng chữ cái
+  /* Tên hiện dần TỪNG TIẾNG, không tách từng chữ cái.
+     LÝ DO: phông Crimson Text là serif trang nhã — tách mỗi ký tự ra một
+     <span> riêng sẽ cắt đứt nét nối, tên trông rời rạc như ghép chữ. Gom theo
+     tiếng thì nét bên trong mỗi tiếng vẫn liền mạch mà vẫn có hiệu ứng lần lượt. */
   var charIdx = 0;
   function spellOut(el, text, startDelay) {
-    el.innerHTML = String(text).split('').map(function (ch) {
-      var d = (startDelay + charIdx * 0.045).toFixed(3);
+    var words = String(text).trim().split(/\s+/).filter(Boolean);
+    el.innerHTML = words.map(function (w, i) {
+      var d = (startDelay + charIdx * 0.16).toFixed(3);
       charIdx++;
-      if (ch === ' ') return '<span class="ch ch--space" style="animation-delay:' + d + 's"> </span>';
-      return '<span class="ch" style="animation-delay:' + d + 's">' + esc(ch) + '</span>';
+      var sp = i < words.length - 1 ? '<span class="ch ch--space"> </span>' : '';
+      return '<span class="ch" style="animation-delay:' + d + 's">' + esc(w) + '</span>' + sp;
     }).join('');
   }
   spellOut($('#heroGroom'), G.shortName || '', 0.35);
@@ -288,7 +292,10 @@
 
     y += 72;
     ctx.fillStyle = '#A99070';
-    ctx.font = '400 20px "Be Vietnam Pro", sans-serif';
+    // Ảnh thiệp tải về dùng đúng 2 phông như trên web:
+    // Ảnh thiệp tải về dùng đúng 2 phông như trên web:
+    // Crimson Text cho tên khách + dấu &, EB Garamond cho mọi thông tin còn lại.
+    ctx.font = '500 22px "EB Garamond", Georgia, serif';
     ctx.fillText('T R Â N   T R Ọ N G   K Í N H   M Ờ I', cx, y);
 
     y += 84;
@@ -297,10 +304,10 @@
     gold.addColorStop(.48, '#E6D096'); gold.addColorStop(.74, '#9A7718');
     gold.addColorStop(1, '#C9A227');
     ctx.fillStyle = gold;
-    ctx.font = '600 76px "Dancing Script", cursive';
+    ctx.font = '600 88px "Crimson Text", serif';
     var gLines = wrapLines(ctx, guestName || 'Quý khách', W - 220);
-    if (gLines.length > 1) ctx.font = '600 60px "Dancing Script", cursive';
-    var lh = gLines.length > 1 ? 72 : 0;
+    if (gLines.length > 1) ctx.font = '600 72px "Crimson Text", serif';
+    var lh = gLines.length > 1 ? 86 : 0;
     gLines.forEach(function (l, i) { ctx.fillText(l, cx, y + i * lh); });
     y += (gLines.length - 1) * lh;
 
@@ -316,38 +323,38 @@
 
     y += 66;
     ctx.fillStyle = '#6E6460';
-    ctx.font = '300 26px "Be Vietnam Pro", sans-serif';
+    ctx.font = '400 29px "EB Garamond", Georgia, serif';
     ctx.fillText('Tới dự buổi tiệc chung vui', cx, y);
     ctx.fillText('cùng gia đình chúng tôi', cx, y + 40);
 
     y += 128;
     ctx.fillStyle = '#3A3330';
-    ctx.font = '400 44px "Cormorant Garamond", Georgia, serif';
+    ctx.font = '500 46px "EB Garamond", Georgia, serif';
     ctx.fillText(G.name || '', cx, y);
     ctx.fillStyle = '#C9A227';
-    ctx.font = '600 40px "Dancing Script", cursive';
+    ctx.font = '600 52px "Crimson Text", serif';
     ctx.fillText('&', cx, y + 52);
     ctx.fillStyle = '#3A3330';
-    ctx.font = '400 44px "Cormorant Garamond", Georgia, serif';
+    ctx.font = '500 46px "EB Garamond", Georgia, serif';
     ctx.fillText(B.name || '', cx, y + 108);
 
     y += 176;
     ctx.fillStyle = '#A8801B';
-    ctx.font = '400 25px "Be Vietnam Pro", sans-serif';
+    ctx.font = '500 28px "EB Garamond", Georgia, serif';
     ctx.fillText(mainEv.time || C.weddingDateText || '', cx, y);
 
     y += 46;
     ctx.fillStyle = '#3A3330';
-    ctx.font = '400 30px "Cormorant Garamond", Georgia, serif';
-    if (mainEv.venue) { ctx.fillText(mainEv.venue, cx, y); y += 38; }
+    ctx.font = '500 34px "EB Garamond", Georgia, serif';
+    if (mainEv.venue) { ctx.fillText(mainEv.venue, cx, y); y += 40; }
     if (mainEv.address) {
-      ctx.font = '300 24px "Be Vietnam Pro", sans-serif';
+      ctx.font = '400 27px "EB Garamond", Georgia, serif';
       ctx.fillStyle = '#6E6460';
       y = drawLines(ctx, wrapLines(ctx, mainEv.address, W - 260), cx, y, 34);
     }
 
     ctx.fillStyle = '#9A908B';
-    ctx.font = 'italic 300 22px "Be Vietnam Pro", sans-serif';
+    ctx.font = 'italic 400 25px "EB Garamond", Georgia, serif';
     ctx.fillText('Sự hiện diện của bạn là niềm vinh hạnh', cx, H - 150);
     ctx.fillText('cho gia đình chúng tôi', cx, H - 118);
 
