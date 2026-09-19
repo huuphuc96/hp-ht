@@ -27,6 +27,29 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      # ---------------------------------------------------------------
+      # ĐÓNG DẤU PHIÊN BẢN VÀO CSS/JS (cache-busting)
+      #
+      # VÌ SAO CẦN: điện thoại giữ lại file css/js đã tải trước đó rất lâu.
+      # Nếu đường dẫn không đổi (css/style.css?v=11) thì máy KHÔNG tải lại,
+      # dù trên GitHub file đã mới — khách vẫn thấy giao diện cũ.
+      # Đổi ?v= thành mã commit mới ⇒ với trình duyệt đó là một file khác
+      # hoàn toàn ⇒ buộc phải tải lại.
+      #
+      # Làm tự động ở đây để KHÔNG BAO GIỜ phải nhớ sửa tay ?v= mỗi lần deploy.
+      # ---------------------------------------------------------------
+      - name: Đóng dấu phiên bản vào CSS/JS
+        run: |
+          STAMP="$(date -u +%Y%m%d%H%M)-${GITHUB_SHA::7}"
+          echo "Phiên bản lần deploy này: $STAMP"
+          find . -name '*.html' -not -path './.git/*' -print0 | xargs -0 sed -i -E \
+            -e "s#(href=\"[^\"]*\.css)\?v=[^\"]*#\1?v=$STAMP#g" \
+            -e "s#(src=\"[^\"]*\.js)\?v=[^\"]*#\1?v=$STAMP#g" \
+            -e "s#(href=\"[^\"]*\.css)\"#\1?v=$STAMP\"#g" \
+            -e "s#(src=\"[^\"]*\.js)\"#\1?v=$STAMP\"#g"
+          echo "--- Kiểm tra lại index.html ---"
+          grep -nE '\.(css|js)\?v=' index.html
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:

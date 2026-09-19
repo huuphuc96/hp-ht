@@ -18,7 +18,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <!-- ?v=11 là số phiên bản chống cache.
      Mỗi lần sửa CSS/JS mà web không chịu cập nhật, tăng số này lên (v=12, v=13...) -->
-<link rel="stylesheet" href="css/style.css?v=11">
+<!-- Số ?v= này chỉ dùng khi mở file trực tiếp trên máy.
+     Lúc deploy, GitHub Actions sẽ tự thay bằng mã commit — xem .github/workflows/deploy.yml -->
+<link rel="stylesheet" href="css/style.css?v=12">
 </head>
 <body>
 
@@ -592,7 +594,7 @@
 <!-- ===== CANVAS CÁNH HOA ===== -->
 <canvas class="petals" id="petals"></canvas>
 
-<script src="js/config.js?v=11"></script>
-<script src="js/main.js?v=11"></script>
+<script src="js/config.js?v=12"></script>
+<script src="js/main.js?v=12"></script>
 </body>
 </html>
