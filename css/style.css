@@ -59,8 +59,7 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.2;margin:0}
 .wrap--narrow{width:min(100% - 40px,var(--wrap-narrow))}
 .center{text-align:center}
 .muted{color:var(--muted)}
-/* Crimson Text là serif trang nhã với nét thanh, hiển thị đẹp ở cỡ lớn. */
-.script{font-family:var(--script);font-size:clamp(1.82rem,4.9vw,2.85rem);color:var(--gold);line-height:1.42;font-weight:600}
+.script{font-family:var(--script);font-size:clamp(0.82rem,4.9vw,2.85rem);color:var(--gold);line-height:1.42;font-weight:600}
 
 /* ---------- BUTTONS ---------- */
 .btn{
@@ -272,18 +271,6 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.2;margin:0}
 /* ---------- INVITE ---------- */
 .invite{padding:clamp(44px,6vw,72px) 0;background:#fff}
 .lead{color:var(--ink-soft);max-width:660px;margin:14px auto 0;font-size:1.2rem}
-.families{display:flex;gap:30px;justify-content:center;align-items:center;margin-top:34px;flex-wrap:wrap}
-.families__side{flex:1;min-width:220px;text-align:center}
-.families__side h4{font-size:.9rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-family:var(--sans)}
-.families__side p{margin:2px 0;font-family:var(--serif);font-size:1.6rem}
-.families__side small{color:var(--muted);font-size:1rem}
-.families__child{
-  display:block;width:fit-content;margin:10px auto 8px!important;padding-top:10px;
-  border-top:1px solid var(--line);color:var(--gold);font-size:1.36rem!important;
-}
-.families__side small{display:block;margin-top:2px}
-.families__child:empty{display:none}
-.families__div{width:1px;align-self:stretch;min-height:90px;background:var(--line)}
 
 /* ---------- THIỆP MỜI: PHONG BÌ + THIỆP GẬP BA ----------
    LƯU Ý 1: .envelope dùng transform-style:preserve-3d, mà trong ngữ cảnh 3D
@@ -293,9 +280,14 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.2;margin:0}
    trải dài xuống hết khung mà không bị phong bì cắt mất.                    */
 .svg-defs{position:absolute;pointer-events:none}
 
+/* CHIỀU CAO KHUNG PHẢI ĐỔI THEO TRẠNG THÁI.
+   Lúc ĐÓNG chỉ cần vừa đúng cái phong bì (phong bì neo vào ĐÁY khung, nên khung
+   thừa bao nhiêu là chừa khoảng trắng phía trên bấy nhiêu — trước đây khung cao
+   900px mà phong bì chỉ 280px nên trắng hơn 500px ở trên).
+   Lúc MỞ mới nở ra cho vừa tấm thiệp. */
 .env-stage{
-  position:relative;height:900px;margin:0 auto;
-  perspective:1700px;perspective-origin:50% 34%;
+  position:relative;height:370px;margin:0 auto;
+  perspective:1700px;perspective-origin:50% 42%;
   transition:height .6s ease;
 }
 /* Thiệp rút ra xong thì khung co lại vừa đúng tấm thiệp, không chừa khoảng trống.
@@ -392,8 +384,13 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.2;margin:0}
      vào trong; lúc mở mới trồi lên và ra trước. Chỉ animate transform nên
      chạy bằng GPU, không phải tính lại layout. */
   z-index:0;
+  /* VỊ TRÍ LÚC ĐÓNG — phải nằm gọn TRONG lòng phong bì, không thò ra ngoài.
+     Cách tính (desktop): thiệp cao 620px, mép dưới ở 650px (top 30 + 620).
+     Nén còn 38% ⇒ cao 236px, mép trên lên 414px. Đẩy lên 330px ⇒ nằm ở 84→320px.
+     Phong bì lúc này chiếm 50→330px �⇒ thiệp lọt trọn bên trong. Đổi chiều cao
+     khung hay tỉ lệ thiệp thì phải tính lại ba số này. */
   transform-origin:bottom center;
-  transform:translate(-50%,194px) rotateX(4deg) scale(.94,.40);
+  transform:translate(-50%,-330px) rotateX(4deg) scale(.94,.38);
   transition:transform .7s cubic-bezier(.4,0,.2,1),box-shadow .7s ease,z-index 0s .65s;
   will-change:transform;
 }
@@ -520,22 +517,38 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.2;margin:0}
    Tính bằng vw để phong bì, tấm thiệp và chiều cao khung luôn tự khớp nhau:
      phong bì cao  = 84vw * 5/7          = 60vw
      thiệp cao     = 86vw * 545/350      ≈ 134vw                            */
-@media (max-width:720px){
-  .env-stage{height:225vw;max-height:1020px}
-  /* Mở xong thì khung co lại vừa tấm thiệp — hết khoảng trắng thừa bên dưới */
-  .env-stage.is-open{height:197vw;max-height:900px}
-  .envelope{bottom:5vw}
+/* ---------- MÀN HÌNH HẸP: HÌNH HỌC TÍNH TOÀN BẰNG vw ----------
+   QUAN TRỌNG: ở đây bỏ hết giới hạn px (min(392px,84vw)...) và dùng vw thuần.
+   Nếu để giới hạn px, trên máy rộng hơn ~400px bề ngang sẽ bị "kẹp" lại còn số
+   px cố định, trong khi các phép đẩy/nén bên dưới vẫn tính theo vw ⇒ lệch nhau,
+   tấm thiệp thò hẳn ra ngoài phong bì.
+
+   Bảng số (đơn vị vw):
+     phong bì : rộng 84, cao 84×5/7 = 60, cách đáy 5  ⇒ nằm ở 11 → 71
+     khung đóng: 76  (vừa đủ phong bì + chỗ cho dòng chữ gợi ý)
+     thiệp    : rộng 93, cao 93×690/350 = 183.3, top 8 ⇒ mép dưới 191.3
+     thiệp đóng: nén 30% ⇒ cao 55, mép trên 136.3; đẩy lên 122 ⇒ 14.3 → 69.3
+                 (lọt trong phong bì 11 → 71 ✓)
+     khung mở : 197  (đủ cho mép dưới thiệp 191.3 + dòng chữ)                */
+@media (max-width:560px){
+  .env-stage{height:76vw}
+  .env-stage.is-open{height:197vw}
+  .envelope{width:84vw;bottom:5vw}
   .env__card{
     top:8vw;
-    width:min(370px,93vw);aspect-ratio:350/690;
-    transform:translate(-50%,60vw) rotateX(4deg) scale(.94,.40);
+    width:93vw;aspect-ratio:350/690;
+    /* scaleX .86 chứ không phải .94: 93vw × .94 = 87vw > 84vw của phong bì,
+       để .94 là hai mép thiệp thò ra hai bên phong bì. */
+    transform:translate(-50%,-122vw) rotateX(4deg) scale(.86,.30);
   }
   .env-stage.is-open .env__card{transform:translate(-50%,0) rotateX(0deg) scale(1)}
   .env__seal{width:56px;height:56px;margin:-28px 0 0 -28px}
   .ecard__body{padding:5.5vw 4.6vw}
-  .ecard__sprig{width:17vw;max-width:70px;margin-bottom:1.8vw}
-  .ecard__rings{width:14vw;max-width:56px}
-  .ecard__divider{width:36vw;max-width:142px}
+  /* Bỏ max-width px ở đây luôn — tấm thiệp giờ rộng theo vw, hoa văn mà bị kẹp
+     lại số px cố định sẽ teo đi so với thiệp trên máy màn rộng. */
+  .ecard__sprig{width:17vw;margin-bottom:1.8vw}
+  .ecard__rings{width:14vw}
+  .ecard__divider{width:36vw}
 
   /* --- Chữ trên thiệp: phóng to theo bề ngang máy cho dễ đọc --- */
   .ec-fams h4{font-size:2.6vw}
@@ -544,7 +557,6 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.2;margin:0}
   .ec-announce{font-size:2.75vw;letter-spacing:.1em}
   .ec-couple__title{font-size:2.6vw}
   .ec-couple__name{font-size:4.4vw}
-  .ec-couple__amp{font-size:6.4vw}
   .ec-eyebrow{font-size:2.85vw}
   .ec-guest{font-size:8vw}
   .ec-couple__amp{font-size:7.8vw}
@@ -555,6 +567,7 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.2;margin:0}
   .ec-venue{font-size:4.2vw}
   .ec-note{font-size:2.95vw}
   .env-hint{font-size:3.2vw}
+  .ecard__orn{width:13vw}
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -797,13 +810,28 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.2;margin:0}
 .footer__credit{margin:34px 0 0;font-size:.84rem;letter-spacing:.19em;text-transform:uppercase;color:var(--muted)}
 
 /* ---------- TOAST ---------- */
+/* Toast lúc ẩn PHẢI nằm trọn ngoài màn hình.
+   LỖI CŨ: dùng translateY(140%) — 140% là 140% CHIỀU CAO CHÍNH NÓ, mà nó còn
+   bị đẩy lên 32px bởi bottom:32px. Toast cao ~56px thì 140% = 78px, trừ đi 32px
+   chỉ còn tụt 46px, tức vẫn còn ~10px nhô lên đáy màn hình — nhìn ra đúng một
+   "cục đen" bo tròn nằm giữa đáy trang. Chữ càng to thì nó càng ló nhiều.
+   CÁCH ĐÚNG: tụt đúng 100% chiều cao CỘNG thêm phần bottom, rồi khoá thêm bằng
+   opacity + visibility cho chắc. */
 .toast{
-  position:fixed;left:50%;bottom:32px;transform:translate(-50%,140%);
+  position:fixed;left:50%;bottom:32px;
+  transform:translate(-50%,calc(100% + 48px));
+  opacity:0;visibility:hidden;pointer-events:none;
   background:var(--ink);color:#fff;padding:13px 26px;border-radius:999px;
-  font-size:1.04rem;z-index:400;transition:transform .45s cubic-bezier(.2,.8,.3,1);
+  font-size:1.04rem;z-index:400;
+  transition:transform .45s cubic-bezier(.2,.8,.3,1),
+             opacity .3s ease,
+             visibility 0s linear .45s;
   box-shadow:var(--shadow);max-width:90vw;text-align:center;
 }
-.toast.is-show{transform:translate(-50%,0)}
+.toast.is-show{
+  transform:translate(-50%,0);opacity:1;visibility:visible;pointer-events:auto;
+  transition-delay:0s,0s,0s;
+}
 
 /* ---------- PETALS ---------- */
 .petals{position:fixed;inset:0;pointer-events:none;z-index:90}
@@ -839,8 +867,6 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.2;margin:0}
   .story-step__text,.rite__text,.tip__text,.run__text,.person__bio{font-size:1.18rem}
   .event__venue{font-size:1.42rem}
   .event__addr,.event__note{font-size:1.1rem}
-  .families__side p{font-size:1.52rem}
-  .families__side small{font-size:1.04rem}
   .btn{font-size:1.04rem;padding:15px 26px}
   .field input,.field select,.field textarea{font-size:1.18rem}
   .field label{font-size:.98rem}
@@ -849,7 +875,6 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.2;margin:0}
   .countdown__cell span{font-size:.86rem}
 
   .field-row{grid-template-columns:1fr}
-  .families__div{display:none}
   .countdown__cell{min-width:76px;padding:12px 8px}
   .countdown__cell b{font-size:1.85rem}
   .mapbox__frame{min-height:260px;aspect-ratio:1/1}

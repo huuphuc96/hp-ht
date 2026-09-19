@@ -57,8 +57,8 @@ window.WEDDING_CONFIG = {
     // Để trống '' nếu muốn dùng nền gradient pastel như cũ.
     photo: 'assets/img/hero.jpg',
     tagline: 'Save the date',
-    quote: 'Chúng mình sắp về chung một nhà!',
-    subQuote: 'Sự hiện diện của bạn là món quà quý giá nhất trong ngày trọng đại của chúng mình.'
+    quote: '',
+    subQuote: ''
   },
 
   /* ---------- 4. CHUYỆN CHÚNG MÌNH (timeline) ---------- */

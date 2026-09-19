@@ -20,7 +20,7 @@
      Mỗi lần sửa CSS/JS mà web không chịu cập nhật, tăng số này lên (v=12, v=13...) -->
 <!-- Số ?v= này chỉ dùng khi mở file trực tiếp trên máy.
      Lúc deploy, GitHub Actions sẽ tự thay bằng mã commit — xem .github/workflows/deploy.yml -->
-<link rel="stylesheet" href="css/style.css?v=13">
+<link rel="stylesheet" href="css/style.css?v=15">
 </head>
 <body>
 
@@ -252,23 +252,10 @@
   <div class="wrap wrap--narrow center">
     <p class="script" id="inviteQuote">—</p>
     <p class="lead" id="inviteSub">—</p>
-    <div class="families">
-      <div class="families__side">
-        <h4>Nhà Trai</h4>
-        <p id="groomFather">—</p>
-        <p id="groomMother">—</p>
-        <p class="families__child" id="groomChild"></p>
-        <small id="groomAddress"></small>
-      </div>
-      <div class="families__div"></div>
-      <div class="families__side">
-        <h4>Nhà Gái</h4>
-        <p id="brideFather">—</p>
-        <p id="brideMother">—</p>
-        <p class="families__child" id="brideChild"></p>
-        <small id="brideAddress"></small>
-      </div>
-    </div>
+    <!-- Khối .families (Nhà Trai / Nhà Gái) đã gỡ theo yêu cầu.
+         Thông tin hai họ vẫn còn đầy đủ trên tấm thiệp ở mục "Thiệp mời" bên dưới.
+         LƯU Ý: main.js đổ dữ liệu vào #groomFather, #brideFather... nên phải dùng
+         hàm setText() có kiểm tra tồn tại, không thì lỗi null chặn hết JS. -->
   </div>
 </section>
 
@@ -593,7 +580,7 @@
 <!-- ===== CANVAS CÁNH HOA ===== -->
 <canvas class="petals" id="petals"></canvas>
 
-<script src="js/config.js?v=13"></script>
-<script src="js/main.js?v=13"></script>
+<script src="js/config.js?v=15"></script>
+<script src="js/main.js?v=15"></script>
 </body>
 </html>

@@ -160,14 +160,19 @@
   $('#inviteSub').textContent = guestName
     ? 'Kính gửi ' + guestName + ', ' + (hero.subQuote || '')
     : (hero.subQuote || '');
-  $('#groomFather').textContent = G.father || '';
-  $('#groomMother').textContent = G.mother || '';
-  $('#groomAddress').textContent = G.address || '';
-  $('#brideFather').textContent = B.father || '';
-  $('#brideMother').textContent = B.mother || '';
-  $('#brideAddress').textContent = B.address || '';
-  $('#groomChild').textContent = G.childTitle ? G.childTitle + ': ' + G.name : '';
-  $('#brideChild').textContent = B.childTitle ? B.childTitle + ': ' + B.name : '';
+  // Khối "Nhà Trai / Nhà Gái" ở mục Lời mời đã gỡ khỏi HTML, nhưng giữ nguyên
+  // đoạn đổ dữ liệu này để lỡ sau muốn gắn lại thì chỉ cần thêm HTML là chạy.
+  // setText bỏ qua êm nếu không tìm thấy phần tử — KHÔNG được gọi thẳng
+  // $('#id').textContent, vì $ trả null và cả khối JS phía sau sẽ chết theo.
+  function setText(sel, val) { var el = $(sel); if (el) el.textContent = val; }
+  setText('#groomFather', G.father || '');
+  setText('#groomMother', G.mother || '');
+  setText('#groomAddress', G.address || '');
+  setText('#brideFather', B.father || '');
+  setText('#brideMother', B.mother || '');
+  setText('#brideAddress', B.address || '');
+  setText('#groomChild', G.childTitle ? G.childTitle + ': ' + G.name : '');
+  setText('#brideChild', B.childTitle ? B.childTitle + ': ' + B.name : '');
 
   // Footer
   $('#footerNames').textContent = pairShort;
